@@ -1,101 +1,165 @@
-import Image from "next/image";
+import HeroHeaderVideo from "@/components/home/heroHeaderVIdeo";
+import { BackgroundBeams } from "@/components/ui/background-beams";
+import { Globe } from "@/components/home/globe";
+import { Button } from "@/components/ui/button";
+import { FlipWords } from "@/components/ui/flip-words";
+import OrbitingCircle from "@/components/home/orbitingCircle";
+import AnimatedNotificationsList from "@/components/home/animatedNotificationsList";
+import GridBackground from "@/components/home/gridBackground";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <main className="flex flex-col min-h-[85vh]">
+      <div className="flex flex-col items-center justify-center my-auto text-center">
+        <HeroHeader />
+        <GlobalKnowledge />
+        <FlexibleLearning />
+        <TechnologyInnovation />
+        <MoreSells />
+      </div>
+      <BackgroundBeams className="absolute -z-50" />
+    </main>
+  );
+}
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+function HeroHeader() {
+  return (
+    <div className="flex flex-col w-1/2 py-8">
+      <h1 className="text-4xl font-extrabold tracking-tight scroll-m-20 lg:text-6xl">
+        Apprenez à votre rythme, de n'importe où, à tout moment.
+      </h1>
+      <div className="w-3/4 mx-auto">
+        <p className="mt-2 text-xl leading-7">
+          Avec <strong>Learn-E</strong>, le monde est votre salle de classe.
+          Profitez d'une flexibilité totale pour apprendre ce qui vous
+          passionne, soutenu par des experts du domaine.
+        </p>
+      </div>
+      <HeroHeaderVideo />
     </div>
+  );
+}
+
+function GlobalKnowledge() {
+  const words = ["apprendre", "s'améliorer", "se développer", "s'épanouir"];
+
+  return (
+    <>
+      <div className="w-[40%] mx-auto mt-12">
+        <h1 className="mt-12 text-4xl font-extrabold tracking-tight text-center scroll-m-20 lg:text-5xl">
+          Pourquoi Learn-E est la meilleure solution pour{" "}
+          <FlipWords words={words} />?
+        </h1>
+      </div>
+      <div className="flex flex-row w-[60%] gap-24 items-center mx-auto">
+        <div className="flex flex-col justify-start w-1/2">
+          <h1 className="mt-12 text-4xl font-extrabold tracking-tight text-left scroll-m-20 lg:text-3xl">
+            Accédez au savoir et à la connaissance du monde entier
+          </h1>
+          <p className="mt-3 leading-6 text-justify">
+            Découvrez des perspectives uniques et enrichissez votre éducation
+            avec Learn-E. Notre plateforme vous relie aux meilleurs enseignants
+            et professionnels du monde entier, vous offrant des cours variés et
+            approfondis dans de multiples langues. Que vous cherchiez à
+            comprendre les complexités de l'économie asiatique, à maîtriser
+            l'art culinaire français, ou à plonger dans la littérature
+            sud-américaine, Learn-E rend tout cela accessible en quelques clics.
+            Profitez d'un apprentissage sans limites et bâtissez des compétences
+            qui sont véritablement globales
+          </p>
+          <Button
+            className="mt-3 text-lg font-bold w-fit"
+            size={"lg"}
+            variant={"outline"}
+          >
+            Rejoignez Learn-E
+          </Button>
+        </div>
+        <div className="w-1/2">
+          <Globe />
+        </div>
+      </div>
+    </>
+  );
+}
+
+function FlexibleLearning() {
+  return (
+    <div className="flex flex-row-reverse w-[60%] py-24 gap-24 items-center mx-auto">
+      <div className="flex flex-col items-end justify-start w-1/2">
+        <h1 className="text-4xl font-extrabold tracking-tight text-right scroll-m-20 lg:text-3xl">
+          Adaptez votre apprentissage à vos besoins
+        </h1>
+        <p className="mt-3 leading-6 text-justify" style={{ direction: "rtl" }}>
+          Chez Learn-E, nous comprenons que chaque apprenant est unique, avec
+          ses propres horaires et engagements. C'est pourquoi nous vous offrons
+          la possibilité d'apprendre selon vos termes. Que vous soyez un
+          lève-tôt ou un noctambule, nos ressources sont disponibles 24/7, vous
+          permettant de vous former à des moments qui vous conviennent. Notre
+          plateforme s'adapte non seulement à votre emploi du temps, mais aussi
+          à votre rythme d'apprentissage, avec des cours pouvant être mis en
+          pause et repris à tout moment. Maximisez votre potentiel sans
+          compromettre votre style de vie actuel
+        </p>
+        <Button
+          className="mt-3 text-lg font-bold w-fit"
+          size={"lg"}
+          variant={"outline"}
+        >
+          Rejoignez Learn-E
+        </Button>
+      </div>
+      <div className="w-1/2">
+        <OrbitingCircle />
+      </div>
+    </div>
+  );
+}
+
+function TechnologyInnovation() {
+  return (
+    <div className="flex flex-row w-[60%] py-24 gap-24 items-center mx-auto">
+      <div className="flex flex-col justify-start w-1/2">
+        <h1 className="text-4xl font-extrabold tracking-tight text-left scroll-m-20 lg:text-3xl">
+          L'innovation technologique au service de l'éducation
+        </h1>
+        <p className="mt-3 leading-6 text-justify">
+          Découvrez des perspectives uniques et enrichissez votre éducation avec
+          Learn-E. Notre plateforme vous relie aux meilleurs enseignants et
+          professionnels du monde entier, vous offrant des cours variés et
+          approfondis dans de multiples langues. Que vous cherchiez à comprendre
+          les complexités de l'économie asiatique, à maîtriser l'art culinaire
+          français, ou à plonger dans la littérature sud-américaine, Learn-E
+          rend tout cela accessible en quelques clics. Profitez de un
+          apprentissage sans limites et bâtissez des compétences qui sont
+          véritablement globales
+        </p>
+        <Button
+          className="mt-3 text-lg font-bold w-fit"
+          size={"lg"}
+          variant={"outline"}
+        >
+          Rejoignez Learn-E
+        </Button>
+      </div>
+      <div className="w-1/2">
+        <AnimatedNotificationsList />
+      </div>
+    </div>
+  );
+}
+
+function MoreSells() {
+  return (
+    <>
+      <div className="w-full h-full">
+        <div className="flex flex-col items-center justify-center w-1/2 h-full py-12 m-auto text-center">
+          <h1 className="mt-20 text-4xl font-extrabold tracking-tight text-center scroll-m-20 lg:text-6xl">
+            Boostez Votre Business de Formation avec Learn-E
+          </h1>
+        </div>
+        <GridBackground />
+      </div>
+    </>
   );
 }
