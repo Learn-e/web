@@ -3,7 +3,7 @@ import AnimatedGridPattern from "@/components/magicui/animated-grid-pattern";
 
 export default function GridBackground() {
   return (
-    <div className="absolute flex items-center justify-center w-full h-screen overflow-hidden -z-50">
+    <div className="relative flex items-center justify-center w-full h-screen overflow-hidden -z-50">
       <AnimatedGridPattern
         numSquares={30}
         maxOpacity={0.1}

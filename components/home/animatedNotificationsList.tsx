@@ -100,7 +100,7 @@ export default function AnimatedNotificationsList({
   return (
     <div
       className={cn(
-        "relative flex h-[500px] w-full flex-col p-6 overflow-hidden rounded-lg bg-background md:shadow-xl",
+        "relative flex h-[500px] w-full flex-col p-6 overflow-hidden rounded-lg",
         className
       )}
     >

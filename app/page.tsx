@@ -6,6 +6,9 @@ import { FlipWords } from "@/components/ui/flip-words";
 import OrbitingCircle from "@/components/home/orbitingCircle";
 import AnimatedNotificationsList from "@/components/home/animatedNotificationsList";
 import GridBackground from "@/components/home/gridBackground";
+import { MessageCircle } from "lucide-react";
+import { MagicCard } from "@/components/magicui/magic-card";
+import BusinessCard from "@/components/home/businessCard";
 
 export default function Home() {
   return (
@@ -75,7 +78,7 @@ function GlobalKnowledge() {
             Rejoignez Learn-E
           </Button>
         </div>
-        <div className="w-1/2">
+        <div className="w-[55%]">
           <Globe />
         </div>
       </div>
@@ -151,15 +154,27 @@ function TechnologyInnovation() {
 
 function MoreSells() {
   return (
-    <>
-      <div className="w-full h-full">
-        <div className="flex flex-col items-center justify-center w-1/2 h-full py-12 m-auto text-center">
-          <h1 className="mt-20 text-4xl font-extrabold tracking-tight text-center scroll-m-20 lg:text-6xl">
-            Boostez Votre Business de Formation avec Learn-E
-          </h1>
+    <div className="relative w-full h-full mt-48">
+      <div className="absolute top-0 left-0 flex flex-col items-center justify-center w-full h-full mx-auto text-center z-10">
+        <h1 className="w-1/2 text-4xl font-extrabold tracking-tight text-center scroll-m-20 lg:text-6xl">
+          Boostez Votre Business de Formation avec Learn-E
+        </h1>
+        <p className="w-1/3 mt-5 text-xl leading-7 text-center">
+          On pourrait penser que c'est une priorité, pourtant, on consacre
+          souvent davantage d'efforts à peaufiner nos tunnels de vente qu'à
+          enrichir l'expérience client.
+        </p>
+        <div>
+          <BusinessCard
+            title="Profitez du bouche-à-oreille"
+            description="Profitez d'un apprentissage sans limites et bâtissez des compétences qui sont véritablement globales"
+            Icon={MessageCircle}
+          />
         </div>
+      </div>
+      <div className="absolute inset-0 z-0">
         <GridBackground />
       </div>
-    </>
+    </div>
   );
 }
