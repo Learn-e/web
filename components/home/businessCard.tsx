@@ -3,12 +3,14 @@ import { MagicCard } from "../magicui/magic-card";
 export default function BusinessCard({
   title,
   description,
-  Icon,
+  icon,
 }: {
   title: string;
   description: string;
-  Icon: any;
+  icon: any;
 }) {
+  const Icon = icon;
+
   return (
     <MagicCard className="px-6 w-[650px] py-12 cursor-pointer shadow-2xl">
       <div className="flex flex-row gap-5">

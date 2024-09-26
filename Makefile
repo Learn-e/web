@@ -13,7 +13,7 @@ shell: up
 	docker compose exec -it $(SERVICE) /bin/bash
 
 format:
-	npx prettier --write src/
+	npx prettier --write **/*.{js,ts,jsx,tsx}
 
 lint:
 	npm run lint

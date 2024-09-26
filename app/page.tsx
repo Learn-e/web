@@ -6,9 +6,9 @@ import { FlipWords } from "@/components/ui/flip-words";
 import OrbitingCircle from "@/components/home/orbitingCircle";
 import AnimatedNotificationsList from "@/components/home/animatedNotificationsList";
 import GridBackground from "@/components/home/gridBackground";
-import { MessageCircle } from "lucide-react";
-import { MagicCard } from "@/components/magicui/magic-card";
 import BusinessCard from "@/components/home/businessCard";
+import { ChartNoAxesCombined, ShoppingCart, Award, Waypoints, MessageSquareQuote} from "lucide-react";
+import Footer from "@/components/global/footer";
 
 export default function Home() {
   return (
@@ -19,6 +19,7 @@ export default function Home() {
         <FlexibleLearning />
         <TechnologyInnovation />
         <MoreSells />
+        <Footer />
       </div>
       <BackgroundBeams className="absolute -z-50" />
     </main>
@@ -154,25 +155,49 @@ function TechnologyInnovation() {
 
 function MoreSells() {
   return (
-    <div className="relative w-full h-full mt-48">
-      <div className="absolute top-0 left-0 flex flex-col items-center justify-center w-full h-full mx-auto text-center z-10">
-        <h1 className="w-1/2 text-4xl font-extrabold tracking-tight text-center scroll-m-20 lg:text-6xl">
-          Boostez Votre Business de Formation avec Learn-E
+    <div className="relative w-full h-full">
+      <div className="absolute top-0 left-0 z-10 flex flex-col items-center w-full h-full mx-auto mt-12 text-center">
+        <h1 className="text-4xl font-extrabold tracking-tight text-center scroll-m-20 lg:text-6xl">
+          Maximisez Votre Impact avec Learn-E{" "}
         </h1>
-        <p className="w-1/3 mt-5 text-xl leading-7 text-center">
-          On pourrait penser que c'est une priorité, pourtant, on consacre
-          souvent davantage d'efforts à peaufiner nos tunnels de vente qu'à
-          enrichir l'expérience client.
+        <p className="w-[55%] mt-5 mb-12 text-xl leading-7 text-center">
+          Transformez vos connaissances en succès commercial. Chez Learn-E, nous
+          comprenons que la qualité de l'expérience utilisateur est aussi
+          importante que la performance de vos tunnels de vente. C'est pourquoi
+          nous vous offrons les outils pour améliorer les deux, assurant ainsi
+          une croissance continue de vos ventes.{" "}
         </p>
-        <div>
+        <div className="grid grid-cols-2 gap-4">
           <BusinessCard
-            title="Profitez du bouche-à-oreille"
-            description="Profitez d'un apprentissage sans limites et bâtissez des compétences qui sont véritablement globales"
-            Icon={MessageCircle}
+            title="Augmentez vos ventes"
+            description="Attirez et fidélisez plus de clients en leur offrant une expérience d'apprentissage inégalée qui les incite à compléter vos cours et à revenir pour plus."
+            icon={ChartNoAxesCombined}
           />
+          <BusinessCard
+            title="Profitez des ventes additionnelles"
+            description="Utilisez notre plateforme pour présenter des offres complémentaires pertinentes à vos clients existants, augmentant ainsi la valeur moyenne par utilisateur."
+            icon={ShoppingCart}
+          />
+          <BusinessCard
+            title="Proposez des formations premiums"
+            description="Enrichissez vos cours avec des fonctionnalités exclusives telles que des espaces membres, des forums actifs, et du coaching personnalisé pour justifier un tarif plus élevé."
+            icon={Award}
+          />
+          <BusinessCard
+            title="User d'un marketing viral"
+            description="Faites que chaque apprenant devienne un porte-parole de votre marque grâce à des expériences transformationnelles qui incitent au partage sur les réseaux sociaux."
+            icon={Waypoints}
+          />
+          <div className="flex justify-center col-span-2">
+            <BusinessCard
+              title="Récoltez des témoignages"
+              description="Profitez d'un apprentissage sans limites et bâtissez des compétences qui sont véritablement gloCapturez et mettez en avant les récits de réussite de vos apprenants pour renforcer la confiance et améliorer les conversions."
+              icon={MessageSquareQuote}
+            />
+          </div>
         </div>
       </div>
-      <div className="absolute inset-0 z-0">
+      <div>
         <GridBackground />
       </div>
     </div>
