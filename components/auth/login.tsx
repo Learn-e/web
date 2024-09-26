@@ -1,49 +1,76 @@
 "use client";
 
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogClose,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../ui/input";
+import { useMutation } from "@tanstack/react-query";
+import { Auth } from "@/api/auth";
+import { toast } from "sonner";
 
 export default function Login() {
   return (
-    <AlertDialog>
-      <AlertDialogTrigger asChild>
+    <Dialog>
+      <DialogTrigger asChild>
         <Button variant="ghost" className="w-fit">
           Connexion
         </Button>
-      </AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Connexion</AlertDialogTitle>
-          <AlertDialogDescription>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Se connecter</DialogTitle>
+          <DialogDescription>
             Veuillez vous connecter pour accéder à votre compte.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
+          </DialogDescription>
+        </DialogHeader>
         <LoginForm />
-        <AlertDialogFooter>
-          <AlertDialogCancel>Annuler</AlertDialogCancel>
-          <AlertDialogAction>Se connecter</AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+      </DialogContent>
+    </Dialog>
   );
 }
 
 function LoginForm() {
+  const AuthAPI = new Auth();
+  const login = useMutation({
+    mutationFn: async ({
+      email,
+      password,
+    }: {
+      email: string;
+      password: string;
+    }) => AuthAPI.login({ email: email, password: password }),
+    mutationKey: ["login"],
+    onSuccess: () => {4
+      setTimeout(() => {
+        toast.success("Vous êtes maintenant connecté à Learn-E.", {
+          position: "top-center",
+          duration: 1500,
+        })
+      }, 300);
+    },
+    onError: () => {
+      setTimeout(() => {
+        toast.error("Une erreur est survenue lors de la connexion.", {
+          position: "top-center",
+          duration: 1500,
+        })
+      }, 300);
+
+    },
+  });
+
   const loginSchema = z.object({
     email: z.string().email(),
     password: z.string(),
@@ -58,12 +85,18 @@ function LoginForm() {
   });
 
   function onSubmit(values: z.infer<typeof loginSchema>) {
-    console.log(values);
+    login.mutate({
+      email: values.email,
+      password: values.password,
+    });
   }
 
   return (
     <Form {...form}>
-      <form className="flex flex-col gap-3" onSubmit={form.handleSubmit(onSubmit)}>
+      <form
+        className="flex flex-col gap-3"
+        onSubmit={form.handleSubmit(onSubmit)}
+      >
         <FormField
           control={form.control}
           name="email"
@@ -92,6 +125,18 @@ function LoginForm() {
             </FormItem>
           )}
         />
+        <DialogFooter>
+          <DialogClose asChild>
+            <Button className="w-fit" variant={"outline"} type="button">
+              Annuler
+            </Button>
+          </DialogClose>
+          <DialogClose asChild>
+            <Button className="w-fit" type="submit">
+              Se connecter
+            </Button>
+          </DialogClose>
+        </DialogFooter>
       </form>
     </Form>
   );

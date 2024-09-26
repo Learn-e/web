@@ -197,7 +197,7 @@ function MoreSells() {
           <div className="flex justify-center col-span-2">
             <BusinessCard
               title="Récoltez des témoignages"
-              description="Profitez d'un apprentissage sans limites et bâtissez des compétences qui sont véritablement gloCapturez et mettez en avant les récits de réussite de vos apprenants pour renforcer la confiance et améliorer les conversions."
+              description="Capturez et mettez en avant les récits de réussite de vos apprenants pour renforcer la confiance et améliorer les conversions."
               icon={MessageSquareQuote}
             />
           </div>
