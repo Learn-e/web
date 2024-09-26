@@ -7,7 +7,13 @@ import OrbitingCircle from "@/components/home/orbitingCircle";
 import AnimatedNotificationsList from "@/components/home/animatedNotificationsList";
 import GridBackground from "@/components/home/gridBackground";
 import BusinessCard from "@/components/home/businessCard";
-import { ChartNoAxesCombined, ShoppingCart, Award, Waypoints, MessageSquareQuote} from "lucide-react";
+import {
+  ChartNoAxesCombined,
+  ShoppingCart,
+  Award,
+  Waypoints,
+  MessageSquareQuote,
+} from "lucide-react";
 import Footer from "@/components/global/footer";
 
 export default function Home() {

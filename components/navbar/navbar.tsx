@@ -5,12 +5,14 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import { div } from "framer-motion/client";
 import { Key } from "react";
+import Login from "../auth/login";
+import Register from "../auth/register";
 
 interface NavbarItems {
   text: string;
   href: string;
+  component?: React.FC;
 }
 
 export default function Navbar({
@@ -39,18 +41,8 @@ export default function Navbar({
             })}
           </div>
           <div className="flex flex-row items-center">
-            {right.map((item: NavbarItems, key: Key) => {
-              return (
-                <NavigationMenuItem key={key}>
-                  <NavigationMenuLink
-                    href={`/${item}`}
-                    className={navigationMenuTriggerStyle()}
-                  >
-                    {item.text}
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-              );
-            })}
+            <Login />
+            <Register />
           </div>
         </NavigationMenuList>
       </NavigationMenu>
