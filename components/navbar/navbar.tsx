@@ -1,3 +1,5 @@
+"use client";
+
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -5,9 +7,11 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import { Key } from "react";
+import { Key, useEffect } from "react";
 import Login from "../auth/login";
 import Register from "../auth/register";
+import { useAuthStore } from "@/store/authStore";
+import { Button } from "../ui/button";
 
 interface NavbarItems {
   text: string;
@@ -22,6 +26,8 @@ export default function Navbar({
   left: NavbarItems[];
   right: NavbarItems[];
 }) {
+  const { isLoggedIn, logout } = useAuthStore();
+
   return (
     <div className="border-b border-accent">
       <NavigationMenu className="justify-center max-w-full p-4 bg-card">
@@ -40,10 +46,16 @@ export default function Navbar({
               );
             })}
           </div>
-          <div className="flex flex-row items-center">
-            <Login />
-            <Register />
-          </div>
+          {!isLoggedIn ? (
+            <div className="flex flex-row items-center">
+              <Login />
+              <Register />
+            </div>
+          ) : (
+            <Button variant={"ghost"} onClick={logout}>
+              Se déconnecter
+            </Button>
+          )}
         </NavigationMenuList>
       </NavigationMenu>
     </div>

@@ -20,7 +20,7 @@ export default function Providers({
     >
       <QueryClientProvider client={queryClient}>
         {children}
-        <Toaster richColors/>
+        <Toaster richColors />
       </QueryClientProvider>
     </ThemeProvider>
   );

@@ -19,6 +19,7 @@ import { Input } from "../ui/input";
 import { useMutation } from "@tanstack/react-query";
 import { Auth } from "@/api/auth";
 import { toast } from "sonner";
+import { useAuthStore } from "@/store/authStore";
 
 export default function Login() {
   return (
@@ -43,6 +44,7 @@ export default function Login() {
 
 function LoginForm() {
   const AuthAPI = new Auth();
+  const { getUser } = useAuthStore();
   const login = useMutation({
     mutationFn: async ({
       email,
@@ -52,12 +54,13 @@ function LoginForm() {
       password: string;
     }) => AuthAPI.login({ email: email, password: password }),
     mutationKey: ["login"],
-    onSuccess: () => {4
+    onSuccess: async () => {
+      await getUser();
       setTimeout(() => {
         toast.success("Vous êtes maintenant connecté à Learn-E.", {
           position: "top-center",
           duration: 1500,
-        })
+        });
       }, 300);
     },
     onError: () => {
@@ -65,9 +68,8 @@ function LoginForm() {
         toast.error("Une erreur est survenue lors de la connexion.", {
           position: "top-center",
           duration: 1500,
-        })
+        });
       }, 300);
-
     },
   });
 

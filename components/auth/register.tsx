@@ -70,7 +70,7 @@ function RegisterForm() {
         toast.success("Vous êtes maintenant inscrit à Learn-E.", {
           position: "top-center",
           duration: 1500,
-        })
+        });
       }, 300);
     },
     onError: () => {
@@ -78,7 +78,7 @@ function RegisterForm() {
         toast.error("Une erreur est survenue lors de l'inscription.", {
           position: "top-center",
           duration: 1500,
-        })
+        });
       }, 300);
     },
   });
