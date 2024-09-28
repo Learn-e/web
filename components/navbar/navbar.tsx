@@ -7,44 +7,48 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import { Key, useEffect } from "react";
 import Login from "../auth/login";
 import Register from "../auth/register";
 import { useAuthStore } from "@/store/authStore";
 import { Button } from "../ui/button";
+import { Skeleton } from "../ui/skeleton";
+import Link from "next/link";
 
-interface NavbarItems {
-  text: string;
-  href: string;
-  component?: React.FC;
-}
+export default function Navbar() {
+  const { isLoggedIn, isLoading, logout } = useAuthStore();
 
-export default function Navbar({
-  left,
-  right,
-}: {
-  left: NavbarItems[];
-  right: NavbarItems[];
-}) {
-  const { isLoggedIn, logout } = useAuthStore();
+  if (isLoading) {
+    return <NavbarSkeleton />;
+  }
 
   return (
     <div className="border-b border-accent">
       <NavigationMenu className="justify-center max-w-full p-4 bg-card">
         <NavigationMenuList className="flex flex-row justify-between">
-          <div className="flex flex-row items-center">
-            {left.map((item: NavbarItems, key: Key) => {
-              return (
-                <NavigationMenuItem key={key}>
-                  <NavigationMenuLink
-                    className={navigationMenuTriggerStyle()}
-                    href={item.href}
-                  >
-                    {item.text}
-                  </NavigationMenuLink>
+          <div className="flex flex-row gap-3 items-center">
+            <NavigationMenuItem>
+              <Link href="/" legacyBehavior passHref>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  Accueil
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+            {isLoggedIn && (
+              <>
+                <NavigationMenuItem>
+                  <Button variant={"ghost"}>Créer une formation</Button>
                 </NavigationMenuItem>
-              );
-            })}
+                <NavigationMenuItem>
+                  <Link href="/trainings" legacyBehavior passHref>
+                    <NavigationMenuLink
+                      className={navigationMenuTriggerStyle()}
+                    >
+                      Mes formations
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+              </>
+            )}
           </div>
           {!isLoggedIn ? (
             <div className="flex flex-row items-center">
@@ -52,10 +56,42 @@ export default function Navbar({
               <Register />
             </div>
           ) : (
-            <Button variant={"ghost"} onClick={logout}>
-              Se déconnecter
-            </Button>
+            <div className="flex flex-row items-center gap-3">
+              <NavigationMenuItem>
+                <Link href="/account" legacyBehavior passHref>
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    Mon compte
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <Button variant={"ghost"} onClick={logout}>
+                  Se déconnecter
+                </Button>
+              </NavigationMenuItem>
+            </div>
           )}
+        </NavigationMenuList>
+      </NavigationMenu>
+    </div>
+  );
+}
+
+function NavbarSkeleton() {
+  return (
+    <div className="border-b border-accent py-1.5">
+      <NavigationMenu className="justify-center max-w-full p-4 bg-card">
+        <NavigationMenuList className="flex flex-row justify-between">
+          <div className="flex flex-row gap-3 items-center">
+            {Array.from({ length: 3 }).map((_, index) => (
+              <Skeleton key={index} className={`w-32 h-7`} />
+            ))}
+          </div>
+          <div className="flex flex-row items-center gap-3">
+            {Array.from({ length: 2 }).map((_, index) => (
+              <Skeleton key={index} className={`w-32 h-7`} />
+            ))}{" "}
+          </div>
         </NavigationMenuList>
       </NavigationMenu>
     </div>

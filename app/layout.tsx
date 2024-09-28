@@ -31,17 +31,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
-          <Navbar
-            left={[
-              { text: "Accueil", href: "/" },
-              { text: "Créer une formation", href: "" },
-              { text: "Parcourir les formations", href: "" },
-            ]}
-            right={[
-              { text: "Connexion", href: "/login" },
-              { text: "Inscription", href: "/signup" },
-            ]}
-          />
+          <Navbar />
           {children}
         </Providers>
       </body>
