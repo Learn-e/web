@@ -13,6 +13,7 @@ import { useAuthStore } from "@/store/authStore";
 import { Button } from "../ui/button";
 import { Skeleton } from "../ui/skeleton";
 import Link from "next/link";
+import CreateTrainings from "../trainings/createTrainings";
 
 export default function Navbar() {
   const { isLoggedIn, isLoading, logout } = useAuthStore();
@@ -36,7 +37,7 @@ export default function Navbar() {
             {isLoggedIn && (
               <>
                 <NavigationMenuItem>
-                  <Button variant={"ghost"}>Créer une formation</Button>
+                  <CreateTrainings />
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                   <Link href="/trainings" legacyBehavior passHref>
@@ -82,15 +83,14 @@ function NavbarSkeleton() {
     <div className="border-b border-accent py-1.5">
       <NavigationMenu className="justify-center max-w-full p-4 bg-card">
         <NavigationMenuList className="flex flex-row justify-between">
-          <div className="flex flex-row gap-3 items-center">
-            {Array.from({ length: 3 }).map((_, index) => (
-              <Skeleton key={index} className={`w-32 h-7`} />
-            ))}
+          <div className="flex flex-row gap-5 items-center">
+            <Skeleton className={`w-20 h-7`} />
+            <Skeleton className={`w-40 h-7`} />
+            <Skeleton className={`w-32 h-7`} />
           </div>
-          <div className="flex flex-row items-center gap-3">
-            {Array.from({ length: 2 }).map((_, index) => (
-              <Skeleton key={index} className={`w-32 h-7`} />
-            ))}{" "}
+          <div className="flex flex-row items-center gap-5">
+            <Skeleton className={`w-32 h-7`} />
+            <Skeleton className={`w-32 h-7`} />
           </div>
         </NavigationMenuList>
       </NavigationMenu>

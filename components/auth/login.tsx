@@ -109,6 +109,7 @@ function LoginForm() {
                 <Input
                   type="email"
                   placeholder="example@example.com"
+                  required
                   {...field}
                 />
               </FormControl>
@@ -122,7 +123,12 @@ function LoginForm() {
             <FormItem>
               <FormLabel> Mot de passe </FormLabel>
               <FormControl>
-                <Input type="password" placeholder="••••••••" {...field} />
+                <Input
+                  type="password"
+                  placeholder="••••••••"
+                  {...field}
+                  required
+                />
               </FormControl>
             </FormItem>
           )}

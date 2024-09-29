@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import Footer from "@/components/global/footer";
 
-export default async function Home() {
+export default async function HomePage() {
   return (
     <main className="flex flex-col min-h-[85vh]">
       <div className="flex flex-col items-center justify-center my-auto text-center">
