@@ -43,4 +43,19 @@ export class Auth {
       },
     });
   };
+
+  get_profile_picture = async () => {
+    return await api.get("auth/profile-picture");
+  };
+
+  update_profile_picture = async ({ file }: { file: any }) => {
+    console.log(file);
+    return await api.post("auth/profile-picture", {
+      body: file,
+    });
+  };
+
+  delete_profile_picture = async () => {
+    return await api.delete("auth/profile-picture");
+  };
 }

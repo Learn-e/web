@@ -35,7 +35,7 @@ export default function Navbar() {
               </Link>
             </NavigationMenuItem>
             {isLoggedIn && (
-              <>
+              <div className="flex flex-row gap-3">
                 <NavigationMenuItem>
                   <CreateTrainings />
                 </NavigationMenuItem>
@@ -48,7 +48,7 @@ export default function Navbar() {
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
-              </>
+              </div>
             )}
           </div>
           {!isLoggedIn ? (

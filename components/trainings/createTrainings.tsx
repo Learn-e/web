@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
 import { Trainings } from "@/api/trainings";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { z } from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
 import { toast } from "sonner";
@@ -54,6 +54,7 @@ export default function CreateTrainings() {
 
 function CreateTrainingForm() {
   const TrainingsAPI = new Trainings();
+  const queryClient = useQueryClient();
   const createTraining = useMutation({
     mutationKey: ["createTraining"],
     mutationFn: async ({
@@ -76,6 +77,7 @@ function CreateTrainingForm() {
         position: "top-center",
         duration: 1500,
       });
+      queryClient.invalidateQueries({ queryKey: ["getTrainings"] });
     },
     onError: () => {
       toast.error(
@@ -83,7 +85,7 @@ function CreateTrainingForm() {
         {
           position: "top-center",
           duration: 1500,
-        }
+        },
       );
     },
   });
@@ -157,32 +159,13 @@ function CreateTrainingForm() {
               <FormControl>
                 <Select onValueChange={field.onChange} value={field.value}>
                   <SelectTrigger className="w-full">
-                    {field.value ? (
-                      <div className="flex items-center h-10">
-                        {
-                          IconsOptions.find(
-                            (option: IconsOptionsType) =>
-                              option.value === field.value
-                          )?.icon
-                        }
-                        <span className="ml-2">
-                          {
-                            IconsOptions.find(
-                              (option: IconsOptionsType) =>
-                                option.value === field.value
-                            )?.label
-                          }
-                        </span>
-                      </div>
-                    ) : (
-                      <SelectValue placeholder="Sélectionner une icône" />
-                    )}
+                    <SelectValue placeholder="Sélectionner une icône" />
                   </SelectTrigger>
                   <SelectContent>
                     {IconsOptions.map((option: IconsOptionsType) => (
                       <SelectItem key={option.value} value={option.value}>
                         <div className="flex items-center">
-                          {option.icon}
+                          {option.selectIcon}
                           <span className="ml-4">{option.label}</span>
                         </div>
                       </SelectItem>
