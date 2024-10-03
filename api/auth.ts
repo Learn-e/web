@@ -44,12 +44,31 @@ export class Auth {
     });
   };
 
-  get_profile_picture = async () => {
-    return await api.get("auth/profile-picture");
+  change_email = async ({ email }: { email: string }) => {
+    console.log(email);
+    return await api.patch("auth/change-email", {
+      json: {
+        new_email: email,
+      },
+    });
+  };
+
+  change_password = async ({
+    current_password,
+    new_password,
+  }: {
+    current_password: string;
+    new_password: string;
+  }) => {
+    return await api.patch("auth/change-password", {
+      json: {
+        current_password,
+        new_password,
+      },
+    });
   };
 
   update_profile_picture = async ({ file }: { file: any }) => {
-    console.log(file);
     return await api.post("auth/profile-picture", {
       body: file,
     });

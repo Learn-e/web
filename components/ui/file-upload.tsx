@@ -35,6 +35,9 @@ export const FileUpload = ({
 
   const handleFileChange = (newFiles: File[]) => {
     const newFile = newFiles[0]; // Prendre uniquement le premier fichier
+    if (newFile.type !== "image/jpeg" && newFile.type !== "image/jpg") {
+      return;
+    }
     setFile(newFile);
     onChange && onChange(newFile);
   };
@@ -65,6 +68,7 @@ export const FileUpload = ({
           type="file"
           onChange={(e) => handleFileChange(Array.from(e.target.files || []))}
           className="hidden"
+          accept="image/jpg, image/jpeg"
         />
         <div className="absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,white,transparent)]">
           <GridPattern />
@@ -82,7 +86,7 @@ export const FileUpload = ({
                 layoutId="file-upload"
                 className={cn(
                   "relative overflow-hidden z-40 bg-white dark:bg-neutral-900 flex flex-col items-start justify-start md:h-24 p-4 mt-4 w-[90%] mx-auto rounded-md",
-                  "shadow-sm"
+                  "shadow-sm",
                 )}
               >
                 <div className="flex justify-between w-full items-center gap-4">
@@ -119,7 +123,7 @@ export const FileUpload = ({
                     animate={{ opacity: 1 }}
                     layout
                   >
-                    modifié le {" "}
+                    modifié le{" "}
                     {new Date(file.lastModified).toLocaleDateString()}
                   </motion.p>
                 </div>
@@ -136,17 +140,17 @@ export const FileUpload = ({
                 }}
                 className={cn(
                   "relative group-hover/file:shadow-2xl z-40 bg-white dark:bg-neutral-900 flex items-center justify-center h-32 mt-4 w-full max-w-[8rem] mx-auto rounded-md",
-                  "shadow-[0px_10px_50px_rgba(0,0,0,0.1)]"
+                  "shadow-[0px_10px_50px_rgba(0,0,0,0.1)]",
                 )}
               >
                 {isDragActive ? (
                   <motion.p
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="text-neutral-600 flex flex-col items-center"
+                    className="text-neutral-600 text-center flex flex-col items-center"
                   >
-                    Drop it
-                    <IconUpload className="h-4 w-4 text-neutral-600 dark:text-neutral-400" />
+                    Lâchez pour télécharger
+                    <IconUpload className="h-6 w-6 text-neutral-600 dark:text-neutral-400 pt-2" />
                   </motion.p>
                 ) : (
                   <IconUpload className="h-4 w-4 text-neutral-600 dark:text-neutral-300" />
@@ -185,7 +189,7 @@ export function GridPattern() {
               }`}
             />
           );
-        })
+        }),
       )}
     </div>
   );

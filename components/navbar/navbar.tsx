@@ -14,12 +14,20 @@ import { Button } from "../ui/button";
 import { Skeleton } from "../ui/skeleton";
 import Link from "next/link";
 import CreateTrainings from "../trainings/createTrainings";
+import Logout from "../auth/logout";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const { isLoggedIn, isLoading, logout } = useAuthStore();
+  const router = useRouter();
 
   if (isLoading) {
     return <NavbarSkeleton />;
+  }
+
+  function onLogout() {
+    logout();
+    router.push("/");
   }
 
   return (
@@ -66,9 +74,7 @@ export default function Navbar() {
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Button variant={"ghost"} onClick={logout}>
-                  Se déconnecter
-                </Button>
+                <Logout onClick={onLogout} />
               </NavigationMenuItem>
             </div>
           )}
