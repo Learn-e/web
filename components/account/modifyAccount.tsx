@@ -69,7 +69,13 @@ function ModifyAccountForm({ user }: { user: any }) {
   });
   const changePassword = useMutation({
     mutationKey: ["changePassword"],
-    mutationFn: ({ current_password, new_password }: { current_password: string; new_password: string }) => {
+    mutationFn: ({
+      current_password,
+      new_password,
+    }: {
+      current_password: string;
+      new_password: string;
+    }) => {
       return AuthAPI.change_password({ current_password, new_password });
     },
     onSuccess: () => {
@@ -84,7 +90,7 @@ function ModifyAccountForm({ user }: { user: any }) {
         duration: 1500,
       });
     },
-  })
+  });
 
   const modifyAccountSchema = z.object({
     firstname: z.string(),
@@ -108,43 +114,39 @@ function ModifyAccountForm({ user }: { user: any }) {
   });
 
   function onSubmit(values: z.infer<typeof modifyAccountSchema>) {
-    // check if email is different from the current email to avoid useless API call
     if (values.email !== user.email) {
       changeEmail.mutate(values.email);
       user.email = values.email;
     }
-    // check if new password is different from the current password
     if (values.new_password !== "" && values.confirm_new_password !== "") {
-      // check if old password is empty
       if (values.old_password === "") {
         return toast.error("Veuillez saisir votre ancien mot de passe", {
           position: "top-center",
           duration: 1500,
         });
       }
-      // check if new password and confirm new password are different
       if (values.new_password !== values.confirm_new_password) {
         return toast.error("Les mots de passe ne correspondent pas", {
           position: "top-center",
           duration: 1500,
         });
       }
-      // check if new password and confirm new password are the same
       if (values.new_password === values.confirm_new_password) {
-        changePassword.mutate({ current_password: values.old_password, new_password: values.new_password });
+        changePassword.mutate({
+          current_password: values.old_password,
+          new_password: values.new_password,
+        });
       }
-    } 
+    }
   }
 
-  function isFormDisabled () {
+  function isFormDisabled() {
     const values = form.getValues();
-    if (values.email === user.email) {
-      return false;
-    }
-    if (values.old_password === "" || values.new_password === "" || values.confirm_new_password === "") {
-      return false;
-    }
-    return true;
+    const isPasswordChangeValid =
+      values.old_password !== "" &&
+      values.new_password !== "" &&
+      values.confirm_new_password !== "";
+    return values.email === user.email && !isPasswordChangeValid;
   }
 
   return (
@@ -152,7 +154,7 @@ function ModifyAccountForm({ user }: { user: any }) {
       <form
         className="flex flex-col gap-3.5"
         onSubmit={form.handleSubmit(onSubmit)}
-        onChange={() => setIsEditing(isFormDisabled())}
+        onChange={() => setIsEditing(!isFormDisabled())}
       >
         <FormField
           control={form.control}
