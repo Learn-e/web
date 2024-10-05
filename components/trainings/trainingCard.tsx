@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import { IconsOptions, IconsOptionsType } from "@/data/icons";
 import Link from "next/link";
+import SubscribeButton from "./subscribeButton";
 
 export default function TrainingCard({ training }: { training: any }) {
   return (
@@ -11,14 +12,17 @@ export default function TrainingCard({ training }: { training: any }) {
             <span>
               {
                 IconsOptions.find(
-                  (icon: IconsOptionsType) => icon.value === training.icon,
+                  (icon: IconsOptionsType) => icon.value === training.icon
                 )?.icon
               }
             </span>
           </div>
-          <p className="text-muted-foreground">
-            Posté le {dayjs(training.created_at).format("DD/MM/YYYY")}
-          </p>
+          <div className="flex flex-row justify-between items-center">
+            <p className="text-muted-foreground">
+              Posté le {dayjs(training.created_at).format("DD/MM/YYYY")}
+            </p>
+            <SubscribeButton training_id={training.id} />
+          </div>
           <h1 className="text-lg font-semibold text-left hover:underline">
             {training.title}
           </h1>

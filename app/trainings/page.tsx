@@ -1,18 +1,12 @@
-import TrainingList from "@/components/trainings/trainingList";
+import MyTrainings from "@/components/trainings/myTrainings";
+import TrainingsList from "@/components/trainings/trainingsList";
 
 export default function TrainingsPage() {
   return (
     <section className="flex flex-col w-full items-center">
-      <div className="flex flex-col w-[70%] p-4">
-        <h1 className="scroll-m-20 underline text-3xl font-extrabold tracking-tight lg:text-4xl">
-          Mes formations
-        </h1>
-      </div>
-      <div className="flex flex-col w-[70%] p-4 gap-5">
-        <h1 className="scroll-m-20 underline text-3xl font-extrabold tracking-tight lg:text-4xl">
-          Découvrir plus de formations
-        </h1>
-        <TrainingList />
+      <div className="flex flex-col gap-8 w-[70%] p-4">
+        <MyTrainings />
+        <TrainingsList />
       </div>
     </section>
   );

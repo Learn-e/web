@@ -19,7 +19,23 @@ export class Trainings {
     });
   };
 
-  getTrainings = async () => {
+  get_my_trainings = async () => {
+    return await api.get("trainings/subscribed").json();
+  };
+
+  get_trainings = async () => {
     return await api.get("trainings").json();
+  };
+
+  subscribe_to_training = async ({ training_id }: { training_id: string }) => {
+    return await api.post(`trainings/${training_id}/subscribe`);
+  };
+
+  unsubscribe_to_training = async ({
+    training_id,
+  }: {
+    training_id: string;
+  }) => {
+    return await api.delete(`trainings/${training_id}/unsubscribe`);
   };
 }

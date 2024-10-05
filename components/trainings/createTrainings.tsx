@@ -54,9 +54,9 @@ export default function CreateTrainings() {
 
 function CreateTrainingForm() {
   const TrainingsAPI = new Trainings();
-  const queryClient = useQueryClient();
+  const query = useQueryClient();
   const createTraining = useMutation({
-    mutationKey: ["createTraining"],
+    mutationKey: ["create_training"],
     mutationFn: async ({
       title,
       description,
@@ -66,7 +66,7 @@ function CreateTrainingForm() {
       description: string;
       icon: string;
     }) => {
-      TrainingsAPI.createTraining({
+      return TrainingsAPI.createTraining({
         title: title,
         description: description,
         icon: icon,
@@ -77,7 +77,7 @@ function CreateTrainingForm() {
         position: "top-center",
         duration: 1500,
       });
-      queryClient.invalidateQueries({ queryKey: ["getTrainings"] });
+      query.invalidateQueries({ queryKey: ["my_trainings"] });
     },
     onError: () => {
       toast.error(
@@ -85,7 +85,7 @@ function CreateTrainingForm() {
         {
           position: "top-center",
           duration: 1500,
-        },
+        }
       );
     },
   });
