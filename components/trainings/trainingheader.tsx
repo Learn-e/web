@@ -10,10 +10,10 @@ export default function TrainingHeader({ id }: {id: string;}) {
     const trainingsAPI = new Trainings();
 
     const training: any = useQuery({
-      queryKey: ["getTraining", id],
+      queryKey: ["getTraining"],
       queryFn: () => trainingsAPI.getTraining(id),
     });
-    console.log("TRAINING",training)
+
     return (
         <div className="w-full flex flex-col p-5 border rounded-lg">
             <div className="flex flex-row">
