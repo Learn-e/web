@@ -85,7 +85,7 @@ function CreateTrainingForm() {
         {
           position: "top-center",
           duration: 1500,
-        }
+        },
       );
     },
   });

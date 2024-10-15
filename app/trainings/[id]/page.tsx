@@ -1,4 +1,6 @@
-import TrainingHeader from "@/components/trainings/trainingheader";
+import TrainingHeader from "@/components/trainings/trainingHeader";
+import TrainingTimeline from "@/components/trainings/trainingTimeline";
+import { Separator } from "@/components/ui/separator";
 
 export default async function TrainingDetails({
   params,
@@ -10,11 +12,12 @@ export default async function TrainingDetails({
   return (
     <div className="flex justify-center">
       <section className="w-[70%] flex flex-row p-5 gap-5">
-        <div className="w-[40%] p-5 border rounded-lg">
-            
+        <div className="w-[30%] p-5 rounded-lg">
+          <TrainingTimeline id={id} />
         </div>
-        <div className="w-[60%] flex flex-row">
-          <TrainingHeader id={id}/>
+        <Separator className="h-full" orientation="vertical" />
+        <div className="w-[70%] flex flex-row">
+          <TrainingHeader id={id} />
         </div>
       </section>
     </div>

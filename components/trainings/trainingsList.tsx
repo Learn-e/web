@@ -13,10 +13,10 @@ function getSubscribedTrainingsIds({
   trainings: any;
 }) {
   const myTrainingsIds = new Set(
-    myTrainings?.data?.map((training: any) => training.id)
+    myTrainings?.data?.map((training: any) => training.id),
   );
   const filteredTrainings = trainings?.data?.filter(
-    (training: any) => !myTrainingsIds.has(training.id)
+    (training: any) => !myTrainingsIds.has(training.id),
   );
 
   return filteredTrainings;

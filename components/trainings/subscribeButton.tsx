@@ -12,7 +12,7 @@ function userOwnTraining({
   training_id: string;
 }): boolean {
   return my_trainings.data?.some(
-    (training: any) => training.id === training_id && training.owner
+    (training: any) => training.id === training_id && training.owner,
   );
 }
 
@@ -24,7 +24,7 @@ function userSubscribedToTraining({
   training_id: string;
 }): boolean {
   return my_trainings.data?.some(
-    (training: any) => training.id === training_id
+    (training: any) => training.id === training_id,
   );
 }
 

@@ -39,7 +39,11 @@ export class Trainings {
     return await api.delete(`trainings/${training_id}/unsubscribe`);
   };
 
-  getTraining = async (id: string) => {
+  get_training = async (id: string) => {
     return await api.get(`trainings/${id}`).json();
+  };
+
+  get_training_steps = async (id: string) => {
+    return await api.get(`trainings/${id}/steps`).json();
   };
 }
