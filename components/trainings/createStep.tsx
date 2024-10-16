@@ -99,12 +99,12 @@ function CreateStepForm({ id }: { id: string }) {
           name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Titre de la formation</FormLabel>
+              <FormLabel>Titre de l&apos;étape</FormLabel>
               <FormControl>
                 <Input
                   type="text"
                   required
-                  placeholder="Entrez le titre de la formation"
+                  placeholder="Entrez le titre de l'étape"
                   {...field}
                 />
               </FormControl>
@@ -116,11 +116,11 @@ function CreateStepForm({ id }: { id: string }) {
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Description de la formation</FormLabel>
+              <FormLabel>Description de l&apos;étape</FormLabel>
               <FormControl>
                 <Textarea
                   required
-                  placeholder="Entrez la description de la formation"
+                  placeholder="Entrez la description de l'étape"
                   {...field}
                 />
               </FormControl>
@@ -132,11 +132,11 @@ function CreateStepForm({ id }: { id: string }) {
           name="content"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Contenu de la formation</FormLabel>
+              <FormLabel>Contenu de l&apos;étape</FormLabel>
               <FormControl>
                 <Textarea
                   required
-                  placeholder="Entrez le contenu de la formation"
+                  placeholder="Entrez le contenu de l'étape"
                   {...field}
                 />
               </FormControl>
