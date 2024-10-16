@@ -87,6 +87,7 @@ function CreateStepForm({ id }: { id: string }) {
       form.reset();
     } catch (error) {
       toast.error("Une erreur s'est produite lors de la création de l'étape.");
+      console.error(error);
     }
   }
 

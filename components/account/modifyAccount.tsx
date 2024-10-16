@@ -1,17 +1,6 @@
 "use client";
 
-import { z } from "zod";
-import { Form, FormField, FormItem, FormLabel, FormControl } from "../ui/form";
-import { Input } from "../ui/input";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "../ui/button";
-import { useAuthStore } from "@/store/authStore";
-import { Skeleton } from "../ui/skeleton";
-import { Label } from "../ui/label";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Auth } from "@/api/auth";
-import Image from "next/image";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -22,17 +11,29 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { FileUpload } from "../ui/file-upload";
-import { useState } from "react";
+import { useAuthStore } from "@/store/authStore";
+import { IUser } from "@/types/IUser";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
+import Image from "next/image";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { z } from "zod";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Button } from "../ui/button";
+import { FileUpload } from "../ui/file-upload";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
+import { Skeleton } from "../ui/skeleton";
 
 const AuthAPI = new Auth();
 
 export default function ModifyAccount() {
   const { user } = useAuthStore();
   return (
-    <div className="flex flex-row gap-16 mt-6 w-full">
+    <div className="flex flex-row w-full gap-16 mt-6">
       <div className="mt-3">
         <ProfilePicture />
       </div>
@@ -47,7 +48,7 @@ export default function ModifyAccount() {
   );
 }
 
-function ModifyAccountForm({ user }: { user: any }) {
+function ModifyAccountForm({ user }: { user: IUser }) {
   const [isEditing, setIsEditing] = useState(false);
   const changeEmail = useMutation({
     mutationKey: ["changeEmail"],
@@ -318,7 +319,7 @@ function ProfilePicture() {
           </AvatarFallback>
         </Avatar>
       </div>
-      <div className="flex flex-col gap-2 items-center mt-4">
+      <div className="flex flex-col items-center gap-2 mt-4">
         <ModifyProfilePicture
           onProfilePictureChange={() =>
             setAvatarKey((prev: number) => prev + 1)
@@ -341,7 +342,7 @@ function ModifyProfilePicture({
 }: {
   onProfilePictureChange: () => void;
 }) {
-  const [file, setFile] = useState<File>();
+  const [file, setFile] = useState<File | undefined>();
 
   function handleFileUpload(file: File) {
     setFile(file);
@@ -349,7 +350,7 @@ function ModifyProfilePicture({
 
   const uploadProfilePicture = useMutation({
     mutationKey: ["updateProfilePicture"],
-    mutationFn: (file: any) => {
+    mutationFn: (file: File) => {
       const formData = new FormData();
       formData.append("picture", file);
       return AuthAPI.update_profile_picture({ file: formData });
@@ -384,7 +385,16 @@ function ModifyProfilePicture({
         <AlertDialogFooter>
           <AlertDialogCancel> Annuler </AlertDialogCancel>
           <AlertDialogAction
-            onClick={() => uploadProfilePicture.mutate(file)}
+            onClick={() => {
+              if (file) {
+                uploadProfilePicture.mutate(file);
+              } else {
+                toast.error("Veuillez sélectionner un fichier", {
+                  position: "top-center",
+                  duration: 1500,
+                });
+              }
+            }}
             asChild
           >
             <Button>Confirmer</Button>

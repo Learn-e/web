@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 
@@ -31,10 +30,8 @@ export function Globe() {
     autoRotateSpeed: 0.5,
   };
 
-  const colors = ["#FFFFFF"];
-
   return (
-    <div className="flex flex-row items-center justify-center relative w-full">
+    <div className="relative flex flex-row items-center justify-center w-full">
       <div className="mx-auto w-full relative overflow-hidden h-full md:h-[40rem]">
         <motion.div
           initial={{
@@ -50,8 +47,8 @@ export function Globe() {
           }}
           className="div"
         ></motion.div>
-        <div className="absolute w-full bottom-0 inset-x-0 bg-gradient-to-b pointer-events-none select-none z-40" />
-        <div className="absolute w-full h-80 md:h-full z-10">
+        <div className="absolute inset-x-0 bottom-0 z-40 w-full pointer-events-none select-none bg-gradient-to-b" />
+        <div className="absolute z-10 w-full h-80 md:h-full">
           <World data={[]} globeConfig={globeConfig} />
         </div>
       </div>

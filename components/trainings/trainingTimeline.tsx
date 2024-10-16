@@ -9,6 +9,7 @@ export default function TrainingTimeline({ id }: { id: string }) {
     queryKey: ["getTrainingSteps"],
     queryFn: () => trainingsAPI.get_training_steps(id),
   });
+  console.log(steps);
 
   return (
     <div className="flex flex-col">

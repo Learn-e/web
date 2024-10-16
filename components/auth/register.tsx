@@ -1,36 +1,36 @@
 "use client";
 
+import { Auth } from "@/api/auth";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DialogClose,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Input } from "../ui/input";
 import { useMutation } from "@tanstack/react-query";
-import { Auth } from "@/api/auth";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { z } from "zod";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
+import { Input } from "../ui/input";
 
 export default function Register() {
   return (
     <Dialog>
       <DialogTrigger asChild>
         <Button variant="ghost" className="w-fit">
-          S'inscrire
+          S&apos;inscrire
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>S'inscrire</DialogTitle>
+          <DialogTitle>S&apos;inscrire</DialogTitle>
           <DialogDescription>
             Veuillez vous inscrire pour accéder à la plateforme.
           </DialogDescription>
@@ -141,7 +141,7 @@ function RegisterForm() {
           name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel> Nom d'utilisateur </FormLabel>
+              <FormLabel> Nom d&apos;utilisateur </FormLabel>
               <FormControl>
                 <Input type="text" placeholder="johndoe" {...field} />
               </FormControl>
@@ -204,7 +204,7 @@ function RegisterForm() {
           </DialogClose>
           <DialogClose asChild>
             <Button className="w-fit" type="submit">
-              S'inscrire
+              S&apos;inscrire
             </Button>
           </DialogClose>
         </DialogFooter>

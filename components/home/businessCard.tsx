@@ -7,7 +7,7 @@ export default function BusinessCard({
 }: {
   title: string;
   description: string;
-  icon: any;
+  icon: React.ComponentType<{ size: number }>;
 }) {
   const Icon = icon;
 
@@ -18,8 +18,8 @@ export default function BusinessCard({
           <Icon size={72} />
         </div>
         <div className="flex flex-col gap-2">
-          <h1 className="text-left text-3xl font-bold">{title}</h1>
-          <p className="text-left text-base leading-6">{description}</p>
+          <h1 className="text-3xl font-bold text-left">{title}</h1>
+          <p className="text-base leading-6 text-left">{description}</p>
         </div>
       </div>
     </MagicCard>

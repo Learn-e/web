@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
@@ -6,7 +5,7 @@ export default function Footer() {
     <footer className="flex flex-row justify-center w-full gap-5 my-20">
       <span>2024 © Learn-E, All Rights Reserved.</span>
       <Link href="/terms" className="underline" target="_blank">
-        Conditions générales d'utilisation
+        Conditions générales d&apos;utilisation
       </Link>
       <Link href="/privacy" className="underline" target="_blank">
         Politique de confidentialité
