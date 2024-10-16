@@ -1,4 +1,5 @@
 "use client";
+import { Trainings } from "@/api/trainings";
 import {
   Dialog,
   DialogClose,
@@ -10,14 +11,16 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 import { Button } from "../ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 
-export default function CreateStep() {
+export default function CreateStep({ id }: { id: string }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -30,17 +33,38 @@ export default function CreateStep() {
             Créez une nouvelle étape pour votre formation.
           </DialogDescription>
         </DialogHeader>
-        <CreateStepForm />
+        <CreateStepForm id={id} />
       </DialogContent>
     </Dialog>
   );
 }
 
-function CreateStepForm() {
+function CreateStepForm({ id }: { id: string }) {
+  const TrainingAPI = new Trainings();
+  const createStep = useMutation({
+    mutationKey: ["createStep"],
+    mutationFn: async ({
+      title,
+      description,
+      content,
+    }: {
+      title: string;
+      description: string;
+      content: string;
+    }) => {
+      return TrainingAPI.create_training_step({
+        id,
+        title,
+        description,
+        content,
+      });
+    },
+  });
   const createStepSchema = z.object({
     title: z.string(),
     description: z.string(),
     content: z.string(),
+    video: z.string().optional(),
   });
 
   const form = useForm<z.infer<typeof createStepSchema>>({
@@ -49,16 +73,26 @@ function CreateStepForm() {
       title: "",
       description: "",
       content: "",
+      video: "",
     },
   });
 
-  async function onSubmit() {
-    console.log("submitted");
+  async function onSubmit(values: z.infer<typeof createStepSchema>) {
+    try {
+      await createStep.mutate({
+        title: values.title,
+        description: values.description,
+        content: values.content,
+      });
+      form.reset();
+    } catch (error) {
+      toast.error("Une erreur s'est produite lors de la création de l'étape.");
+    }
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
           name="title"
@@ -69,7 +103,7 @@ function CreateStepForm() {
                 <Input
                   type="text"
                   required
-                  placeholder="Titre de la formation"
+                  placeholder="Entrez le titre de la formation"
                   {...field}
                 />
               </FormControl>
@@ -81,12 +115,11 @@ function CreateStepForm() {
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Description</FormLabel>
+              <FormLabel>Description de la formation</FormLabel>
               <FormControl>
-                <Input
-                  type="text"
+                <Textarea
                   required
-                  placeholder="Description"
+                  placeholder="Entrez la description de la formation"
                   {...field}
                 />
               </FormControl>
@@ -98,9 +131,25 @@ function CreateStepForm() {
           name="content"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Contenu</FormLabel>
+              <FormLabel>Contenu de la formation</FormLabel>
               <FormControl>
-                <Textarea required placeholder="Contenu" {...field} />
+                <Textarea
+                  required
+                  placeholder="Entrez le contenu de la formation"
+                  {...field}
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="video"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Lien de la vidéo</FormLabel>
+              <FormControl>
+                <Input type="file" accept="video/*" multiple {...field} />
               </FormControl>
             </FormItem>
           )}

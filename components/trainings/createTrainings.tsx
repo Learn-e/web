@@ -1,25 +1,25 @@
 "use client";
 
+import { Trainings } from "@/api/trainings";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DialogClose,
 } from "@/components/ui/dialog";
-import { Button } from "../ui/button";
-import { Trainings } from "@/api/trainings";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { z } from "zod";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
-import { toast } from "sonner";
-import { useForm } from "react-hook-form";
+import { IconsOptions, IconsOptionsType } from "@/data/icons";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { z } from "zod";
+import { Button } from "../ui/button";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
 import { Input } from "../ui/input";
-import { Textarea } from "../ui/textarea";
 import {
   Select,
   SelectContent,
@@ -27,8 +27,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import React from "react";
-import { IconsOptionsType, IconsOptions } from "@/data/icons";
+import { Textarea } from "../ui/textarea";
 
 export default function CreateTrainings() {
   return (
@@ -66,7 +65,7 @@ function CreateTrainingForm() {
       description: string;
       icon: string;
     }) => {
-      return TrainingsAPI.createTraining({
+      return TrainingsAPI.create_training({
         title: title,
         description: description,
         icon: icon,
@@ -85,7 +84,7 @@ function CreateTrainingForm() {
         {
           position: "top-center",
           duration: 1500,
-        },
+        }
       );
     },
   });

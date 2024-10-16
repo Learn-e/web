@@ -13,7 +13,7 @@ export default function TrainingTimeline({ id }: { id: string }) {
   return (
     <div className="flex flex-col">
       <div className="ml-auto">
-        <CreateStep />
+        <CreateStep id={id} />
       </div>
     </div>
   );

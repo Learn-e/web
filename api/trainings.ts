@@ -1,7 +1,7 @@
 import { api } from "./api";
 
 export class Trainings {
-  createTraining = async ({
+  create_training = async ({
     title,
     description,
     icon,
@@ -41,6 +41,26 @@ export class Trainings {
 
   get_training = async (id: string) => {
     return await api.get(`trainings/${id}`).json();
+  };
+
+  create_training_step = async ({
+    id,
+    title,
+    description,
+    content,
+  }: {
+    id: string;
+    title: string;
+    description: string;
+    content: string;
+  }) => {
+    return await api.post(`trainings/${id}/steps`, {
+      json: {
+        title,
+        description,
+        content,
+      },
+    });
   };
 
   get_training_steps = async (id: string) => {
