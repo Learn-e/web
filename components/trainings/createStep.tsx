@@ -1,4 +1,5 @@
 "use client";
+import { Steps } from "@/api/steps";
 import { Trainings } from "@/api/trainings";
 import {
   Dialog,
@@ -11,12 +12,20 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { Button } from "../ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "../ui/form";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 
@@ -40,7 +49,10 @@ export default function CreateStep({ id }: { id: string }) {
 }
 
 function CreateStepForm({ id }: { id: string }) {
+  const [file, setFile] = useState<File | null>(null);
+  const query = useQueryClient();
   const TrainingAPI = new Trainings();
+  const StepAPI = new Steps();
   const createStep = useMutation({
     mutationKey: ["createStep"],
     mutationFn: async ({
@@ -59,12 +71,27 @@ function CreateStepForm({ id }: { id: string }) {
         content,
       });
     },
+    onSuccess: () => {
+      toast.success("L'étape a été créée avec succès !", {
+        position: "top-center",
+        duration: 1500,
+      });
+      query.invalidateQueries({ queryKey: ["get_trainings_steps"] });
+    },
   });
+
+  const addVideo = useMutation({
+    mutationKey: ["add_video"],
+    mutationFn: async ({ source }: { source: string }) => {
+      return StepAPI.add_video_step({ id, source });
+    },
+  });
+
   const createStepSchema = z.object({
     title: z.string(),
     description: z.string(),
     content: z.string(),
-    video: z.string().optional(),
+    video: z.any(),
   });
 
   const form = useForm<z.infer<typeof createStepSchema>>({
@@ -73,9 +100,15 @@ function CreateStepForm({ id }: { id: string }) {
       title: "",
       description: "",
       content: "",
-      video: "",
     },
   });
+
+  function handleFileUpload(event: React.ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    setFile(file);
+    form.setValue("video", file);
+  }
 
   async function onSubmit(values: z.infer<typeof createStepSchema>) {
     try {
@@ -84,7 +117,19 @@ function CreateStepForm({ id }: { id: string }) {
         description: values.description,
         content: values.content,
       });
-      form.reset();
+
+      if (file) {
+        const reader = new FileReader();
+        reader.onloadend = async () => {
+          const binaryString = reader.result as string;
+          await addVideo.mutate({ source: binaryString });
+          form.reset();
+          setFile(null); // Reset the file state
+        };
+        reader.readAsDataURL(file); // or reader.readAsBinaryString(file);
+      } else {
+        form.reset();
+      }
     } catch (error) {
       toast.error("Une erreur s'est produite lors de la création de l'étape.");
       console.error(error);
@@ -140,21 +185,18 @@ function CreateStepForm({ id }: { id: string }) {
                   {...field}
                 />
               </FormControl>
+              <FormDescription>
+                Vous pouvez utiliser du Markdown pour formater votre contenu.
+              </FormDescription>
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="video"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Lien de la vidéo</FormLabel>
-              <FormControl>
-                <Input type="file" accept="video/*" multiple {...field} />
-              </FormControl>
-            </FormItem>
-          )}
-        />
+        <FormItem>
+          <FormLabel>Support vidéo</FormLabel>
+          <FormControl>
+            <Input type="file" accept="video/*" onChange={handleFileUpload} />
+          </FormControl>
+        </FormItem>
         <DialogFooter className="mt-5">
           <DialogClose asChild>
             <Button variant={"outline"}>Annuler</Button>

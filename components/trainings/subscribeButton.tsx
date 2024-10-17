@@ -12,7 +12,7 @@ function userOwnTraining({
   training_id: string;
 }): boolean {
   return my_trainings.data?.some(
-    (training: any) => training.id === training_id && training.owner,
+    (training: any) => training.id === training_id && training.owner
   );
 }
 
@@ -24,7 +24,7 @@ function userSubscribedToTraining({
   training_id: string;
 }): boolean {
   return my_trainings.data?.some(
-    (training: any) => training.id === training_id,
+    (training: any) => training.id === training_id
   );
 }
 
@@ -93,11 +93,15 @@ export default function SubscribeButton({
   }
 
   return (
-    <span
-      className="z-50 hover:bg-accent p-1.5 rounded-lg"
-      onClick={handleClick}
-    >
-      {isOwned ? null : isSubscribed ? <Check /> : <Plus />}
-    </span>
+    <>
+      {!isOwned ? (
+        <span
+          className="z-50 hover:bg-accent p-1.5 rounded-lg"
+          onClick={handleClick}
+        >
+          {isSubscribed ? <Check /> : <Plus />}
+        </span>
+      ) : null}
+    </>
   );
 }
