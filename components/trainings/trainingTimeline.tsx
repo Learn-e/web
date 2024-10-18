@@ -12,10 +12,14 @@ export default function TrainingTimeline({ id }: { id: string }) {
     queryFn: () => trainingsAPI.get_training_steps(id),
   });
 
+  if (steps.isLoading) {
+    return null;
+  }
+
   return (
     <div className="flex flex-col items-end">
       <div>
-        <CreateStep id={id} />
+        <CreateStep training_id={id} />
       </div>
       <div className="flex flex-col mt-4">
         {steps.data?.map((step: IStep) => (

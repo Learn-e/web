@@ -8,7 +8,6 @@ export default async function TrainingDetails({
   params: { id: string };
 }) {
   const { id } = params;
-
   return (
     <div className="flex justify-center">
       <section className="w-[70%] flex flex-row p-5 gap-5">

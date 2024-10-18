@@ -1,6 +1,7 @@
 import { api } from "@/api/api";
-import { create } from "zustand";
+import { Auth } from "@/api/auth";
 import { toast } from "sonner";
+import { create } from "zustand";
 
 interface AuthStore {
   isLoggedIn: boolean;
@@ -16,9 +17,10 @@ export const useAuthStore = create<AuthStore>((set) => ({
   isLoading: true,
 
   getUser: async () => {
+    const auth = new Auth();
     set({ isLoading: true });
     try {
-      const user = await api.get("auth").json();
+      const user = await auth.identity();
       set({
         isLoggedIn: true,
         user: user,

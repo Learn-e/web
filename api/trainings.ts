@@ -64,6 +64,7 @@ export class Trainings {
   };
 
   get_training_steps = async (id: string) => {
+    console.log(id);
     return await api.get(`trainings/${id}/steps`).json();
   };
 }

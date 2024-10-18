@@ -28,8 +28,9 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
+import { VideoUpload } from "../ui/video-upload";
 
-export default function CreateStep({ id }: { id: string }) {
+export default function CreateStep({ training_id }: { training_id: string }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -42,14 +43,14 @@ export default function CreateStep({ id }: { id: string }) {
             Créez une nouvelle étape pour votre formation.
           </DialogDescription>
         </DialogHeader>
-        <CreateStepForm id={id} />
+        <CreateStepForm training_id={training_id} />
       </DialogContent>
     </Dialog>
   );
 }
 
-function CreateStepForm({ id }: { id: string }) {
-  const [file, setFile] = useState<File | null>(null);
+function CreateStepForm({ training_id }: { training_id: string }) {
+  const [file, setFile] = useState<File | undefined>();
   const query = useQueryClient();
   const TrainingAPI = new Trainings();
   const StepAPI = new Steps();
@@ -64,8 +65,8 @@ function CreateStepForm({ id }: { id: string }) {
       description: string;
       content: string;
     }) => {
-      return TrainingAPI.create_training_step({
-        id,
+      return await TrainingAPI.create_training_step({
+        id: training_id,
         title,
         description,
         content,
@@ -82,8 +83,14 @@ function CreateStepForm({ id }: { id: string }) {
 
   const addVideo = useMutation({
     mutationKey: ["add_video"],
-    mutationFn: async ({ source }: { source: string }) => {
-      return StepAPI.add_video_step({ id, source });
+    mutationFn: async ({ id, source }: { id: string; source: FormData }) => {
+      return await StepAPI.add_video_step({ id, source });
+    },
+    onSuccess: () => {
+      toast.success("La vidéo a été ajoutée avec succès !", {
+        position: "top-center",
+        duration: 1500,
+      });
     },
   });
 
@@ -103,33 +110,24 @@ function CreateStepForm({ id }: { id: string }) {
     },
   });
 
-  function handleFileUpload(event: React.ChangeEvent<HTMLInputElement>) {
-    const file = event.target.files?.[0];
-    if (!file) return;
+  function handleFileUpload(file: File) {
     setFile(file);
-    form.setValue("video", file);
   }
 
   async function onSubmit(values: z.infer<typeof createStepSchema>) {
     try {
-      await createStep.mutate({
+      const newStep: any = await createStep.mutate({
         title: values.title,
         description: values.description,
         content: values.content,
       });
-
+      console.log(newStep);
       if (file) {
-        const reader = new FileReader();
-        reader.onloadend = async () => {
-          const binaryString = reader.result as string;
-          await addVideo.mutate({ source: binaryString });
-          form.reset();
-          setFile(null); // Reset the file state
-        };
-        reader.readAsDataURL(file); // or reader.readAsBinaryString(file);
-      } else {
-        form.reset();
+        const form = new FormData();
+        form.append("source", file);
+        await addVideo.mutate({ id: newStep.id, source: form });
       }
+      form.reset();
     } catch (error) {
       toast.error("Une erreur s'est produite lors de la création de l'étape.");
       console.error(error);
@@ -194,14 +192,16 @@ function CreateStepForm({ id }: { id: string }) {
         <FormItem>
           <FormLabel>Support vidéo</FormLabel>
           <FormControl>
-            <Input type="file" accept="video/*" onChange={handleFileUpload} />
+            <VideoUpload onChange={handleFileUpload} />
           </FormControl>
         </FormItem>
         <DialogFooter className="mt-5">
           <DialogClose asChild>
             <Button variant={"outline"}>Annuler</Button>
           </DialogClose>
-          <Button type="submit">Créer</Button>
+          <DialogClose asChild>
+            <Button type="submit">Créer</Button>
+          </DialogClose>
         </DialogFooter>
       </form>
     </Form>
