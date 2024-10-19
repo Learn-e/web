@@ -7,9 +7,7 @@ export class Steps {
 
   add_video_step = async ({ id, source }: { id: string; source: FormData }) => {
     return await api.post(`steps/${id}/video`, {
-      json: {
-        body: source,
-      },
+      body: source,
     });
   };
 }

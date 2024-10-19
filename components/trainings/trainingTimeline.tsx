@@ -25,7 +25,10 @@ export default function TrainingTimeline({ id }: { id: string }) {
         {steps.data?.map((step: IStep) => (
           <div key={step.id} className="flex flex-col gap-16">
             <div className="flex items-center hover:text-gray-400">
-              <Link href={`steps/${step.id}`} className="text-lg font-bold">
+              <Link
+                href={`${id}/steps/${step.id}`}
+                className="text-lg font-bold"
+              >
                 -{" "}
                 <span className="hover:underline underline-offset-2">
                   {step.title}

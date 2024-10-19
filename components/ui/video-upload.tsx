@@ -51,7 +51,7 @@ export const VideoUpload = ({
     noClick: true,
     onDrop: handleFileChange,
     onDropRejected: (error) => {
-      console.log(error);
+      console.error(error);
     },
   });
 

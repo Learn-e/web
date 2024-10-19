@@ -54,17 +54,18 @@ export class Trainings {
     description: string;
     content: string;
   }) => {
-    return await api.post(`trainings/${id}/steps`, {
-      json: {
-        title,
-        description,
-        content,
-      },
-    });
+    return await api
+      .post(`trainings/${id}/steps`, {
+        json: {
+          title,
+          description,
+          content,
+        },
+      })
+      .json();
   };
 
   get_training_steps = async (id: string) => {
-    console.log(id);
     return await api.get(`trainings/${id}/steps`).json();
   };
 }

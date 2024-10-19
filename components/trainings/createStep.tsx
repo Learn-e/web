@@ -1,4 +1,3 @@
-"use client";
 import { Steps } from "@/api/steps";
 import { Trainings } from "@/api/trainings";
 import {
@@ -54,6 +53,7 @@ function CreateStepForm({ training_id }: { training_id: string }) {
   const query = useQueryClient();
   const TrainingAPI = new Trainings();
   const StepAPI = new Steps();
+
   const createStep = useMutation({
     mutationKey: ["createStep"],
     mutationFn: async ({
@@ -65,12 +65,13 @@ function CreateStepForm({ training_id }: { training_id: string }) {
       description: string;
       content: string;
     }) => {
-      return await TrainingAPI.create_training_step({
+      const result: any = await TrainingAPI.create_training_step({
         id: training_id,
         title,
         description,
         content,
       });
+      return result;
     },
     onSuccess: () => {
       toast.success("L'étape a été créée avec succès !", {
@@ -78,6 +79,9 @@ function CreateStepForm({ training_id }: { training_id: string }) {
         duration: 1500,
       });
       query.invalidateQueries({ queryKey: ["get_trainings_steps"] });
+    },
+    onError: () => {
+      toast.error("Une erreur s'est produite lors de la création de l'étape.");
     },
   });
 
@@ -88,6 +92,12 @@ function CreateStepForm({ training_id }: { training_id: string }) {
     },
     onSuccess: () => {
       toast.success("La vidéo a été ajoutée avec succès !", {
+        position: "top-center",
+        duration: 1500,
+      });
+    },
+    onError: () => {
+      toast.error("Une erreur s'est produite lors de l'ajout de la vidéo.", {
         position: "top-center",
         duration: 1500,
       });
@@ -116,20 +126,25 @@ function CreateStepForm({ training_id }: { training_id: string }) {
 
   async function onSubmit(values: z.infer<typeof createStepSchema>) {
     try {
-      const newStep: any = await createStep.mutate({
+      const result = await createStep.mutateAsync({
         title: values.title,
         description: values.description,
         content: values.content,
       });
-      console.log(newStep);
-      if (file) {
-        const form = new FormData();
-        form.append("source", file);
-        await addVideo.mutate({ id: newStep.id, source: form });
+
+      if (file && result.id) {
+        console.log(file);
+        const formData = new FormData();
+        formData.append("source", file);
+        console.log(formData.get("source"));
+        await addVideo.mutateAsync({ id: result.id, source: formData });
       }
       form.reset();
     } catch (error) {
-      toast.error("Une erreur s'est produite lors de la création de l'étape.");
+      toast.error("Une erreur s'est produite lors de la création de l'étape.", {
+        position: "top-center",
+        duration: 1500,
+      });
       console.error(error);
     }
   }

@@ -45,7 +45,6 @@ export class Auth {
   };
 
   change_email = async ({ email }: { email: string }) => {
-    console.log(email);
     return await api.patch("auth/change-email", {
       json: {
         new_email: email,

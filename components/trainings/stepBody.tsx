@@ -25,7 +25,7 @@ export default function StepBody({ id }: { id: string }) {
         <video
           className="mt-4"
           controls
-          src={step.data?.video}
+          src={`${process.env.NEXT_PUBLIC_API_URL}/steps/${step.data?.id}/video`}
           style={{ width: "100%" }}
         />
       )}
