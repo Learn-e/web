@@ -27,7 +27,7 @@ export default function TrainingHeader({ id }: { id: string }) {
           {
             IconsOptionsHeader.find(
               (icon: IconsOptionsHeaderType) =>
-                icon.value === training.data?.icon
+                icon.value === training.data?.icon,
             )?.icon
           }
         </span>

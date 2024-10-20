@@ -31,11 +31,9 @@ import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { VideoUpload } from "../ui/video-upload";
 import { IStep } from "@/types/IStep";
-import { useRouter } from "next/navigation";
 
 function EditStepForm({ step, setOpen }: { step: IStep; setOpen: any }) {
   const [file, setFile] = useState<File | undefined>();
-  const router = useRouter();
   const query = useQueryClient();
   const StepAPI = new Steps();
 
@@ -68,7 +66,7 @@ function EditStepForm({ step, setOpen }: { step: IStep; setOpen: any }) {
     },
     onError: () => {
       toast.error(
-        "Une erreur s'est produite lors de la mise à jour de l'étape."
+        "Une erreur s'est produite lors de la mise à jour de l'étape.",
       );
     },
   });
@@ -104,7 +102,7 @@ function EditStepForm({ step, setOpen }: { step: IStep; setOpen: any }) {
         {
           position: "top-center",
           duration: 1500,
-        }
+        },
       );
     },
   });
@@ -146,13 +144,13 @@ function EditStepForm({ step, setOpen }: { step: IStep; setOpen: any }) {
       }
       form.reset();
       setOpen(false);
-    } catch (error) {
+    } catch {
       toast.error(
         "Une erreur s'est produite lors de la mise à jour de l'étape.",
         {
           position: "top-center",
           duration: 1500,
-        }
+        },
       );
     }
   }

@@ -3,7 +3,6 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Check, Plus } from "lucide-react";
 import React from "react";
 import { toast } from "sonner";
-import EditButton from "./editTrainingButton";
 import EditTrainingButton from "./editTrainingButton";
 import DeleteTrainingButton from "./deleteTrainingButton";
 
@@ -15,7 +14,7 @@ function userOwnTraining({
   training_id: string;
 }): boolean {
   return my_trainings.data?.some(
-    (training: any) => training.id === training_id && training.owner
+    (training: any) => training.id === training_id && training.owner,
   );
 }
 
@@ -27,7 +26,7 @@ function userSubscribedToTraining({
   training_id: string;
 }): boolean {
   return my_trainings.data?.some(
-    (training: any) => training.id === training_id
+    (training: any) => training.id === training_id,
   );
 }
 

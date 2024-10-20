@@ -12,7 +12,7 @@ export default function TrainingCard({ training }: { training: any }) {
             <span>
               {
                 IconsOptions.find(
-                  (icon: IconsOptionsType) => icon.value === training.icon
+                  (icon: IconsOptionsType) => icon.value === training.icon,
                 )?.icon
               }
             </span>

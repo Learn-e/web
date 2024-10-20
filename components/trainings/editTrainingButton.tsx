@@ -4,10 +4,8 @@ import { Edit } from "lucide-react";
 import { Trainings } from "@/api/trainings";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -72,7 +70,7 @@ function EditTrainingForm({
         {
           position: "top-center",
           duration: 1500,
-        }
+        },
       );
     },
   });
