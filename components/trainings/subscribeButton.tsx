@@ -3,6 +3,9 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Check, Plus } from "lucide-react";
 import React from "react";
 import { toast } from "sonner";
+import EditButton from "./editTrainingButton";
+import EditTrainingButton from "./editTrainingButton";
+import DeleteTrainingButton from "./deleteTrainingButton";
 
 function userOwnTraining({
   my_trainings,
@@ -101,7 +104,12 @@ export default function SubscribeButton({
         >
           {isSubscribed ? <Check /> : <Plus />}
         </span>
-      ) : null}
+      ) : (
+        <div className="flex flex-row">
+          <EditTrainingButton training_id={training_id} />
+          <DeleteTrainingButton training_id={training_id} />
+        </div>
+      )}
     </>
   );
 }

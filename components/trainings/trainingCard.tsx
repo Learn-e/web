@@ -12,7 +12,7 @@ export default function TrainingCard({ training }: { training: any }) {
             <span>
               {
                 IconsOptions.find(
-                  (icon: IconsOptionsType) => icon.value === training.icon,
+                  (icon: IconsOptionsType) => icon.value === training.icon
                 )?.icon
               }
             </span>
@@ -23,6 +23,7 @@ export default function TrainingCard({ training }: { training: any }) {
             </p>
             <SubscribeButton training_id={training.id} />
           </div>
+
           <h1 className="text-lg font-semibold text-left hover:underline">
             {training.title}
           </h1>

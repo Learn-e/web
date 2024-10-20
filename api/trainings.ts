@@ -68,4 +68,28 @@ export class Trainings {
   get_training_steps = async (id: string) => {
     return await api.get(`trainings/${id}/steps`).json();
   };
+
+  update_training = async ({
+    id,
+    title,
+    description,
+    icon,
+  }: {
+    id: string;
+    title: string;
+    description: string;
+    icon: string;
+  }) => {
+    return await api.patch(`trainings/${id}`, {
+      json: {
+        title,
+        description,
+        icon,
+      },
+    });
+  };
+
+  delete_training = async ({ id }: { id: string }) => {
+    return await api.delete(`trainings/${id}`);
+  };
 }

@@ -29,10 +29,7 @@ export default function TrainingTimeline({ id }: { id: string }) {
                 href={`${id}/steps/${step.id}`}
                 className="text-lg font-bold"
               >
-                -{" "}
-                <span className="hover:underline underline-offset-2">
-                  {step.title}
-                </span>
+                - <span>{step.title}</span>
               </Link>
             </div>
           </div>

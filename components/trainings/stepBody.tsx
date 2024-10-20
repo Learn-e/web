@@ -7,28 +7,29 @@ import remarkGfm from "remark-gfm";
 export default function StepBody({ id }: { id: string }) {
   const stepAPI = new Steps();
   const step: any = useQuery({
-    queryKey: ["get_training_step"],
+    queryKey: ["get_step"],
     queryFn: () => stepAPI.get_training_step(id),
   });
 
   return (
     <div className="w-full">
+      {step.data?.video && (
+        <>
+          <video
+            className="w-full rounded-lg"
+            controls
+            src={`http://localhost:3000/steps/${step.data?.id}/video`}
+          />
+        </>
+      )}
       <Markdown
         className={
-          "max-w-none prose lg:prose-lg dark:prose-invert prose-h1:mb-1 prose-h2:m-0 prose-p:mb-5 prose-p:text-justify prose-p:mt-0 prose-hr:mb-6"
+          "max-w-none mt-6 prose lg:prose-lg dark:prose-invert prose-h1:mb-1 prose-h2:m-0 prose-p:mb-5 prose-p:text-justify prose-p:mt-0 prose-hr:mb-6"
         }
         remarkPlugins={[remarkGfm]}
       >
         {step.data?.content}
       </Markdown>
-      {step.data?.video && (
-        <video
-          className="mt-4"
-          controls
-          src={`${process.env.NEXT_PUBLIC_API_URL}/steps/${step.data?.id}/video`}
-          style={{ width: "100%" }}
-        />
-      )}
     </div>
   );
 }

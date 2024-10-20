@@ -5,12 +5,14 @@ import { Separator } from "@/components/ui/separator";
 import { IconsOptionsHeader, IconsOptionsHeaderType } from "@/data/icons";
 import { useQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
+import EditTrainingButton from "./editTrainingButton";
+import DeleteTrainingButton from "./deleteTrainingButton";
 
 export default function TrainingHeader({ id }: { id: string }) {
   const trainingsAPI = new Trainings();
 
   const training: any = useQuery({
-    queryKey: ["getTraining"],
+    queryKey: ["get_training"],
     queryFn: () => trainingsAPI.get_training(id),
   });
 
@@ -20,18 +22,22 @@ export default function TrainingHeader({ id }: { id: string }) {
 
   return (
     <div className="flex flex-col w-full p-5 rounded-lg">
-      <div className="flex flex-row">
-        <span className="mt-2">
+      <div className="flex flex-row gap-3 items-center">
+        <span>
           {
             IconsOptionsHeader.find(
               (icon: IconsOptionsHeaderType) =>
-                icon.value === training.data?.icon,
+                icon.value === training.data?.icon
             )?.icon
           }
         </span>
-        <h1 className="text-3xl font-extrabold tracking-tight ms-5 lg:text-4xl">
+        <h1 className="text-3xl font-extrabold tracking-tight lg:text-4xl">
           {training.data?.title}
         </h1>
+        <div className="flex flex-row">
+          <EditTrainingButton training_id={id} />
+          <DeleteTrainingButton training_id={id} />
+        </div>
       </div>
       <p className="text-muted-foreground">
         Posté le {dayjs(training.data?.created_at).format("DD/MM/YYYY")}
