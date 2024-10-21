@@ -2,7 +2,7 @@ import { api } from "./api";
 
 export class Auth {
   identity: any = async () => {
-    return await api.get("auth");
+    return await api.get("auth").json();
   };
 
   login: any = async ({

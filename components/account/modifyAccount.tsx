@@ -32,6 +32,7 @@ const AuthAPI = new Auth();
 
 export default function ModifyAccount() {
   const { user } = useAuthStore();
+
   return (
     <div className="flex flex-row w-full gap-16 mt-6">
       <div className="mt-3">

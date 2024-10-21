@@ -1,8 +1,4 @@
-import { Trash } from "lucide-react";
-import { Button } from "../ui/button";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Steps } from "@/api/steps";
-import { toast } from "sonner";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -13,9 +9,13 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { useState } from "react";
 import { AlertDialogTrigger } from "@radix-ui/react-alert-dialog";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "sonner";
+import { Button } from "../ui/button";
 
 export default function DeleteStepButton({ step_id }: { step_id: string }) {
   const router = useRouter();
@@ -44,6 +44,7 @@ export default function DeleteStepButton({ step_id }: { step_id: string }) {
   const handleConfirm = () => {
     deleteStep.mutate();
     setOpen(false);
+    router.refresh();
     router.back();
   };
 
