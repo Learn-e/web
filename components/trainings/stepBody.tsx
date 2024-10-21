@@ -11,16 +11,16 @@ export default function StepBody({ id }: { id: string }) {
     queryFn: () => stepAPI.get_training_step(id),
   });
 
+  console.log(step.data?.id);
+
   return (
     <div className="w-full">
       {step.data?.video && (
-        <>
-          <video
-            className="w-full rounded-lg"
-            controls
-            src={`http://localhost:3000/steps/${step.data?.id}/video`}
-          />
-        </>
+        <video
+          className="w-full rounded-lg"
+          controls
+          src={`http://localhost:3000/steps/1/video`}
+        />
       )}
       <Markdown
         className={

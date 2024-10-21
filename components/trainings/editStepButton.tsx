@@ -1,6 +1,5 @@
 "use client";
 
-import { Edit } from "lucide-react";
 import { Steps } from "@/api/steps";
 import {
   Dialog,
@@ -12,8 +11,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { IStep } from "@/types/IStep";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { Edit } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -30,10 +32,10 @@ import {
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { VideoUpload } from "../ui/video-upload";
-import { IStep } from "@/types/IStep";
 
 function EditStepForm({ step, setOpen }: { step: IStep; setOpen: any }) {
   const [file, setFile] = useState<File | undefined>();
+  const router = useRouter();
   const query = useQueryClient();
   const StepAPI = new Steps();
 
@@ -66,7 +68,7 @@ function EditStepForm({ step, setOpen }: { step: IStep; setOpen: any }) {
     },
     onError: () => {
       toast.error(
-        "Une erreur s'est produite lors de la mise à jour de l'étape.",
+        "Une erreur s'est produite lors de la mise à jour de l'étape."
       );
     },
   });
@@ -102,7 +104,7 @@ function EditStepForm({ step, setOpen }: { step: IStep; setOpen: any }) {
         {
           position: "top-center",
           duration: 1500,
-        },
+        }
       );
     },
   });
@@ -139,8 +141,11 @@ function EditStepForm({ step, setOpen }: { step: IStep; setOpen: any }) {
       if (file) {
         const formData = new FormData();
         formData.append("source", file);
-        await deleteVideo.mutateAsync(step.id);
+        if (step.video) {
+          await deleteVideo.mutateAsync(step.id);
+        }
         await addVideo.mutateAsync({ id: step.id, source: formData });
+        router.refresh();
       }
       form.reset();
       setOpen(false);
@@ -150,7 +155,7 @@ function EditStepForm({ step, setOpen }: { step: IStep; setOpen: any }) {
         {
           position: "top-center",
           duration: 1500,
-        },
+        }
       );
     }
   }
