@@ -5,6 +5,7 @@ import EditStepButton from "./editStepButton";
 import DeleteStepButton from "./deleteStepButton";
 import { Trainings } from "@/api/trainings";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function StepHeader({ id }: { id: string }) {
   const stepAPI = new Steps();
@@ -33,16 +34,26 @@ export default function StepHeader({ id }: { id: string }) {
 
   return (
     <div>
-      <div className="flex flex-row items-center gap-3">
-        <h1 className="text-4xl font-extrabold tracking-tight scroll-m-20 lg:text-5xl">
-          {step.data?.title}
-        </h1>
-        {isOwned && (
-          <>
-            <EditStepButton step_id={step?.data.id} />
-            <DeleteStepButton step_id={step?.data.id} />
-          </>
-        )}
+      <div className="flex flex-row justify-between">
+        <div className="flex flex-row items-center gap-3">
+          <h1 className="text-4xl font-extrabold tracking-tight scroll-m-20 lg:text-5xl">
+            {step.data?.title}
+          </h1>
+          {isOwned && (
+            <>
+              <EditStepButton step_id={step?.data.id} />
+              <DeleteStepButton step_id={step?.data.id} />
+            </>
+          )}
+        </div>
+        <div className="flex items-center hover:text-gray-400">
+          <Link
+            href={`/trainings/${training_id}`}
+            className="font-bold"
+          >
+            Retour à la formation
+          </Link>
+        </div>
       </div>
       <p className="leading-7 text-justify [&:not(:first-child)]:mt-2 text-muted-foreground">
         {step.data?.description}
