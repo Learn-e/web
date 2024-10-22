@@ -145,7 +145,6 @@ function EditStepForm({ step, setOpen }: { step: IStep; setOpen: any }) {
           await deleteVideo.mutateAsync(step.id);
         }
         await addVideo.mutateAsync({ id: step.id, source: formData });
-        router.refresh();
       }
       form.reset();
       setOpen(false);

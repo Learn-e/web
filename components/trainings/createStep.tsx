@@ -28,6 +28,7 @@ import {
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { VideoUpload } from "../ui/video-upload";
+import { useRouter } from "next/navigation";
 
 export default function CreateStep({ training_id }: { training_id: string }) {
   return (
@@ -51,6 +52,7 @@ export default function CreateStep({ training_id }: { training_id: string }) {
 function CreateStepForm({ training_id }: { training_id: string }) {
   const [file, setFile] = useState<File | undefined>();
   const query = useQueryClient();
+  const router = useRouter();
   const TrainingAPI = new Trainings();
   const StepAPI = new Steps();
 
@@ -95,6 +97,7 @@ function CreateStepForm({ training_id }: { training_id: string }) {
         position: "top-center",
         duration: 1500,
       });
+      router.refresh();
     },
     onError: () => {
       toast.error("Une erreur s'est produite lors de l'ajout de la vidéo.", {
@@ -133,10 +136,8 @@ function CreateStepForm({ training_id }: { training_id: string }) {
       });
 
       if (file && result.id) {
-        console.log(file);
         const formData = new FormData();
         formData.append("source", file);
-        console.log(formData.get("source"));
         await addVideo.mutateAsync({ id: result.id, source: formData });
       }
       form.reset();

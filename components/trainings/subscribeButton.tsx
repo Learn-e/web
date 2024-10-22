@@ -5,6 +5,7 @@ import React from "react";
 import { toast } from "sonner";
 import EditTrainingButton from "./editTrainingButton";
 import DeleteTrainingButton from "./deleteTrainingButton";
+import { useRouter } from "next/navigation";
 
 function userOwnTraining({
   my_trainings,
@@ -14,7 +15,8 @@ function userOwnTraining({
   training_id: string;
 }): boolean {
   return my_trainings.data?.some(
-    (training: any) => training.id === training_id && training.owner
+    (training: any) =>
+      training.id.toString() === training_id.toString() && training.owner
   );
 }
 
@@ -37,7 +39,7 @@ export default function SubscribeButton({
 }) {
   const TrainingAPI = new Trainings();
   const query = useQueryClient();
-
+  const router = useRouter();
   const my_trainings = useQuery({
     queryKey: ["my_trainings"],
     queryFn: TrainingAPI.get_my_trainings,
@@ -93,8 +95,6 @@ export default function SubscribeButton({
       subscribe.mutate();
     }
   }
-
-  console.log(isSubscribed);
 
   return (
     <>

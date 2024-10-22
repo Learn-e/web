@@ -44,7 +44,6 @@ export default function DeleteStepButton({ step_id }: { step_id: string }) {
   const handleConfirm = () => {
     deleteStep.mutate();
     setOpen(false);
-    router.refresh();
     router.back();
   };
 
