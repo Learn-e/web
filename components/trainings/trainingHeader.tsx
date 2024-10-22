@@ -5,8 +5,7 @@ import { Separator } from "@/components/ui/separator";
 import { IconsOptionsHeader, IconsOptionsHeaderType } from "@/data/icons";
 import { useQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
-import EditTrainingButton from "./editTrainingButton";
-import DeleteTrainingButton from "./deleteTrainingButton";
+import SubscribeButton from "./subscribeButton";
 
 export default function TrainingHeader({ id }: { id: string }) {
   const trainingsAPI = new Trainings();
@@ -27,7 +26,7 @@ export default function TrainingHeader({ id }: { id: string }) {
           {
             IconsOptionsHeader.find(
               (icon: IconsOptionsHeaderType) =>
-                icon.value === training.data?.icon,
+                icon.value === training.data?.icon
             )?.icon
           }
         </span>
@@ -35,8 +34,7 @@ export default function TrainingHeader({ id }: { id: string }) {
           {training.data?.title}
         </h1>
         <div className="flex flex-row">
-          <EditTrainingButton training_id={id} />
-          <DeleteTrainingButton training_id={id} />
+          <SubscribeButton training_id={id} />
         </div>
       </div>
       <p className="text-muted-foreground">
