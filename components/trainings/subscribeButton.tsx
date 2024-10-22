@@ -5,7 +5,7 @@ import React from "react";
 import { toast } from "sonner";
 import EditTrainingButton from "./editTrainingButton";
 import DeleteTrainingButton from "./deleteTrainingButton";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 function userOwnTraining({
   my_trainings,
@@ -55,6 +55,7 @@ export default function SubscribeButton({
         position: "top-center",
       });
       query.invalidateQueries({ queryKey: ["my_trainings"] });
+      router.push(`/trainings/${training_id}`);
     },
     onError: () => {
       toast.error("Une erreur est survenue, veuillez réessayer plus tard", {
@@ -75,6 +76,7 @@ export default function SubscribeButton({
         position: "top-center",
       });
       query.invalidateQueries({ queryKey: ["my_trainings"] });
+      router.push("/trainings");
     },
     onError: () => {
       toast.error("Une erreur est survenue, veuillez réessayer plus tard", {

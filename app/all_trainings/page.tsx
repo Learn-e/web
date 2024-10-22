@@ -4,7 +4,7 @@ export default function TrainingsPage() {
   return (
     <section className="flex flex-col w-full items-center">
       <div className="flex flex-col gap-8 w-[70%] p-4">
-        <TrainingsList my_trainings={false}/>
+        <TrainingsList />
       </div>
     </section>
   );
