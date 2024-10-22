@@ -22,7 +22,9 @@ function getSubscribedTrainingsIds({
   return filteredTrainings;
 }
 
-export default function TrainingsList() {
+export default function TrainingsList(
+  {my_trainings}:{my_trainings: boolean}
+) {
   const trainingsAPI = new Trainings();
   const trainings: any = useQuery({
     queryKey: ["get_trainings"],
@@ -44,9 +46,14 @@ export default function TrainingsList() {
 
   return (
     <div className="flex flex-col gap-5">
+      {my_trainings?
       <h1 className="scroll-m-20 underline text-3xl font-extrabold tracking-tight lg:text-4xl">
         Découvrir plus de formations
+      </h1>:
+      <h1 className="scroll-m-20 underline text-3xl font-extrabold tracking-tight lg:text-4xl">
+        Formations à découvrir
       </h1>
+      }
       <div className="flex flex-row flex-wrap gap-3">
         {filteredTrainings.map((training: any, key: Key) => (
           <TrainingCard key={key} training={training} />
