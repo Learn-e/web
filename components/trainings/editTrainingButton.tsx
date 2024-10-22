@@ -70,7 +70,7 @@ function EditTrainingForm({
         {
           position: "top-center",
           duration: 1500,
-        },
+        }
       );
     },
   });
@@ -187,12 +187,13 @@ export default function EditTrainingButton({
 }) {
   const [open, setOpen] = useState(false);
   const trainingAPI = new Trainings();
-  const training: any = useQuery({
+  const training = useQuery({
     queryKey: ["get_training"],
     queryFn: () => trainingAPI.get_training(training_id),
   });
-  const handleClick = (e: React.MouseEvent) => {
+  const handleClick = async (e: React.MouseEvent) => {
     e.stopPropagation();
+    await training.refetch();
     setOpen(true);
   };
 
