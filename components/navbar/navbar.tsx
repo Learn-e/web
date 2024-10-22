@@ -54,6 +54,15 @@ export default function Navbar() {
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <Link href="/all_trainings" legacyBehavior passHref>
+                    <NavigationMenuLink
+                      className={navigationMenuTriggerStyle()}
+                    >
+                      Formations à découvrir
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
               </div>
             )}
           </div>

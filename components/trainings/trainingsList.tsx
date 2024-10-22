@@ -44,8 +44,9 @@ export default function TrainingsList() {
 
   return (
     <div className="flex flex-col gap-5">
+
       <h1 className="scroll-m-20 underline text-3xl font-extrabold tracking-tight lg:text-4xl">
-        Découvrir plus de formations
+        Formations à découvrir
       </h1>
       <div className="flex flex-row flex-wrap gap-3">
         {filteredTrainings.map((training: any, key: Key) => (
