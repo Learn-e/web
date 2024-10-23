@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import TrainingCard from "./trainingCard";
 import { Key } from "react";
 
-function getSubscribedTrainingsIds({
+function getUnsubscribedTrainingsIds({
   myTrainings,
   trainings,
 }: {
@@ -33,7 +33,7 @@ export default function TrainingsList() {
     queryFn: trainingsAPI.get_my_trainings,
   });
 
-  const filteredTrainings = getSubscribedTrainingsIds({
+  const filteredTrainings = getUnsubscribedTrainingsIds({
     myTrainings,
     trainings,
   });
