@@ -9,7 +9,7 @@ export default function BusinessCard({
   description: string;
   icon: any;
 }) {
-  const Icon = icon;
+  const Icon: any = icon;
 
   return (
     <MagicCard className="px-6 w-[650px] py-12 cursor-pointer shadow-2xl">
