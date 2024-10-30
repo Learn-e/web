@@ -7,7 +7,7 @@ export default function BusinessCard({
 }: {
   title: string;
   description: string;
-  icon: React.ComponentType<{ size: number }>;
+  icon: any;
 }) {
   const Icon = icon;
 
