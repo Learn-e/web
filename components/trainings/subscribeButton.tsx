@@ -5,7 +5,7 @@ import React from "react";
 import { toast } from "sonner";
 import EditTrainingButton from "./editTrainingButton";
 import DeleteTrainingButton from "./deleteTrainingButton";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 function userOwnTraining({
   my_trainings,

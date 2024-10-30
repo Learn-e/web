@@ -15,7 +15,6 @@ import { IStep } from "@/types/IStep";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Edit } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -35,7 +34,6 @@ import { VideoUpload } from "../ui/video-upload";
 
 function EditStepForm({ step, setOpen }: { step: IStep; setOpen: any }) {
   const [file, setFile] = useState<File | undefined>();
-  const router = useRouter();
   const query = useQueryClient();
   const StepAPI = new Steps();
 
