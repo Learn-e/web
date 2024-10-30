@@ -177,28 +177,28 @@ function MoreSells() {
           <BusinessCard
             title="Augmentez vos ventes"
             description="Attirez et fidélisez plus de clients en leur offrant une expérience d'apprentissage inégalée qui les incite à compléter vos cours et à revenir pour plus."
-            icon={ChartNoAxesCombined}
+            icon={ChartNoAxesCombined as any}
           />
           <BusinessCard
             title="Profitez des ventes additionnelles"
             description="Utilisez notre plateforme pour présenter des offres complémentaires pertinentes à vos clients existants, augmentant ainsi la valeur moyenne par utilisateur."
-            icon={ShoppingCart}
+            icon={ShoppingCart as any}
           />
           <BusinessCard
             title="Proposez des formations premiums"
             description="Enrichissez vos cours avec des fonctionnalités exclusives telles que des espaces membres, des forums actifs, et du coaching personnalisé pour justifier un tarif plus élevé."
-            icon={Award}
+            icon={Award as any}
           />
           <BusinessCard
             title="User d'un marketing viral"
             description="Faites que chaque apprenant devienne un porte-parole de votre marque grâce à des expériences transformationnelles qui incitent au partage sur les réseaux sociaux."
-            icon={Waypoints}
+            icon={Waypoints as any}
           />
           <div className="flex justify-center col-span-2">
             <BusinessCard
               title="Récoltez des témoignages"
               description="Capturez et mettez en avant les récits de réussite de vos apprenants pour renforcer la confiance et améliorer les conversions."
-              icon={MessageSquareQuote}
+              icon={MessageSquareQuote as any}
             />
           </div>
         </div>
