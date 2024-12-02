@@ -15,7 +15,7 @@ export default function TrainingHeader({ id }: { id: string }) {
     queryFn: () => trainingsAPI.get_training(id),
   });
 
-  if (training.isLoading || training.data.length > 0) {
+  if (training.isLoading) {
     return null;
   }
 
