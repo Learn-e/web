@@ -59,7 +59,5 @@ To verify that the project has been correctly initialized and started :
 - Slim OURLISSENE (@slimourlissene)
 - Enzo MOYON (@moyonenzo)
 - Julien PATERNA (@julienpaterna)
-- Mohamed-Nour Achour (@mohamed75xx)
 - Adam SALAMA (@adamslma)
-- Noah LUSEVA (@noahluseva)
 - Ethan BRUNET (@tseacen)
